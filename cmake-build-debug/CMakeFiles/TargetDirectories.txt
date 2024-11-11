@@ -1,0 +1,3 @@
+C:/Users/User/Projects/programing_language_translators/cmake-build-debug/CMakeFiles/programing_language_translators.dir
+C:/Users/User/Projects/programing_language_translators/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/User/Projects/programing_language_translators/cmake-build-debug/CMakeFiles/rebuild_cache.dir
