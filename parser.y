@@ -7,12 +7,21 @@
 int yylval_int;
 char* yylval_str;
 
-/* Error function. */
+int yylex(void);
 void yyerror(const char *s);
 
 /* We could build an AST or parse tree structures here.
    For simplicity, we're just going to parse and print success/failure. */
 %}
+
+/* Inform Bison that we expect one shift/reduce conflict due to the dangling else problem */
+%expect 1
+
+/* Define the semantic value types */
+%union {
+    int intval;
+    char* strval;
+}
 
 /* Declare tokens to Bison. These must match the names used in the lexer. */
 %token IDENTIFIER_TOKEN
@@ -47,7 +56,8 @@ void yyerror(const char *s);
 %token SEMICOLON_TOKEN
 %token COMMA_TOKEN
 
-/* Precedence & associativity (optional, for resolving shift/reduce conflicts) */
+/* Precedence & associativity */
+%right ASSIGN_TOKEN             /* Lowest precedence */
 %left OR_TOKEN
 %left AND_TOKEN
 %left EQUAL_TOKEN NOT_EQUAL_TOKEN

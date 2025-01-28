@@ -5,7 +5,8 @@
 Install the necessary tools using the following command:
 
 ```bash
-sudo apt-get install bison flex
+brew install bison
+brew install flex
 ```
 
 *Note: Bison is not required for the lexer alone. It is typically used for parser generation.*
@@ -13,45 +14,32 @@ sudo apt-get install bison flex
 ## Compile the Lexer
 
 Generate the lexer and compile it with the following commands:
+Use Bison to generate the parser implementation (`parser.tab.c`) and parser header (`parser.tab.h`):
 
 ```bash
-lex lexer.l
-gcc lex.yy.c -o plt_lexer -ll
+bison -d parser.y
 ```
 
-## Run the Lexer
-
-Execute the lexer by providing a PLT source file as input:
+```bash
+flex lexer.l
+```
 
 ```bash
-./plt_lexer plt_example.txt
+gcc lex.yy.c parser.tab.c -o plt_parser -ll
+```
+
+Run the Parser
+```bash
+./plt_parser plt_example.txt
 ```
 
 ---
 
-## Additional Commands: Syntax Analysis with Bison
+## Syntax Analysis with Bison
 
 If you want to extend this project to include a **parser** for syntactic analysis of PLT, follow these steps (assuming you have a grammar file named `parser.y` and a modified or separate lexer file for parsing, e.g., `lexer2.l`):
 
-1. **Generate Parser Files**  
-   Use Bison to generate the parser implementation (`parser.tab.c`) and parser header (`parser.tab.h`):
-   ```bash
-   bison -d parser.y
-   ```
 
-
-2. **Compile and Link**  
-   Compile both the parser and the lexical analyzer into an executable:
-   ```bash
-   gcc parser.tab.c lex.yy.c -o plt_parser -lfl
-   ```
-   - The `-lfl` flag links the Flex library (on some systems it could be `-ll`).
-
-3. **Run the Parser**  
-   To parse a PLT source file (e.g., `plt_example.txt`), run:
-   ```bash
-   ./plt_parser plt_example.txt
-   ```
 
 ```
 
