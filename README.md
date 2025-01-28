@@ -1,7 +1,3 @@
-Certainly! Here's the revised `README.md` tailored to align with the reorganized Lex file. The token names have been updated to match the changes in the lexer, and the sections have been rearranged for better clarity and flow.
-
----
-
 # PLT Lexer
 
 ## Installation
@@ -29,6 +25,34 @@ Execute the lexer by providing a PLT source file as input:
 
 ```bash
 ./plt_lexer plt_example.txt
+```
+
+---
+
+## Additional Commands: Syntax Analysis with Bison
+
+If you want to extend this project to include a **parser** for syntactic analysis of PLT, follow these steps (assuming you have a grammar file named `parser.y` and a modified or separate lexer file for parsing, e.g., `lexer2.l`):
+
+1. **Generate Parser Files**  
+   Use Bison to generate the parser implementation (`parser.tab.c`) and parser header (`parser.tab.h`):
+   ```bash
+   bison -d parser.y
+   ```
+
+
+2. **Compile and Link**  
+   Compile both the parser and the lexical analyzer into an executable:
+   ```bash
+   gcc parser.tab.c lex.yy.c -o plt_parser -lfl
+   ```
+   - The `-lfl` flag links the Flex library (on some systems it could be `-ll`).
+
+3. **Run the Parser**  
+   To parse a PLT source file (e.g., `plt_example.txt`), run:
+   ```bash
+   ./plt_parser plt_example.txt
+   ```
+
 ```
 
 ## Defined Tokens
